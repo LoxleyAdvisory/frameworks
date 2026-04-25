@@ -47,4 +47,4 @@ Advisory board member, OLLU Strategic AI Certificate Program · Contributing aut
 ---
 
 [![License: CC BY-NC-ND 4.0](https://licensebuttons.net/l/by-nc-nd/4.0/80x15.png)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
-© Loxley Advisory Group. Licensed under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/). You may share this material with attribution. Commercial use and derivative works are not permitted.
+Copyright © 2026 Loxley Advisory Group LLC. Licensed under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/). You may share this material with attribution. Commercial use and derivative works are not permitted.

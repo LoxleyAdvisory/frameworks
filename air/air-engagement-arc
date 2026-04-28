@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Readiness Assessment: Engagement Arc</title>
+<meta name="description" content="A kickoff reference for the AI Readiness Assessment engagement. Covers the five-phase arc, client responsibilities, the deliverable, and communication expectations.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   LOXLEY FRAMEWORK DOCUMENT : TACTICAL VERDANT
+   Derived from Capability Brief 01 (Technical Health Assessment
+   Framework), the canonical exemplar. Layered with the curated
+   evolutions adopted as canonical: dark obsidian footer,
+   .callout component, .check-list component.
+
+   When in doubt, the THA HTML is the source of truth.
+   ============================================================ */
+
+:root {
+  --obsidian: #0F1419;
+  --obsidian-soft: #1F2429;
+  --obsidian-muted: #4A5159;
+  --silver: #C5C9D0;
+  --silver-light: #E4E6EA;
+  --vellum: #F5F1E8;
+  --vellum-deep: #EDE8DC;
+  --vellum-warm: #F8F5EE;
+  --green: #2D7A4D;
+  --green-deep: #1F5A37;
+  --green-pale: #E8F0EB;
+  --rule: rgba(15, 20, 25, 0.12);
+  --rule-soft: rgba(15, 20, 25, 0.06);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: "Geist", -apple-system, sans-serif;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--obsidian);
+  background: var(--vellum);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.page { max-width: 880px; margin: 0 auto; padding: 0 48px; }
+
+/* ============================================================
+   TOPBAR
+   ============================================================ */
+.topbar {
+  border-bottom: 1px solid var(--rule);
+  padding: 22px 0;
+}
+
+.topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "Geist Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--obsidian-muted);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--obsidian);
+  font-weight: 500;
+}
+
+.brand-mark {
+  width: 10px;
+  height: 10px;
+  background: var(--green);
+  transform: rotate(45deg);
+}
+
+/* ============================================================
+   HERO
+   Eyebrow: single label preceded by a green decorative line.
+   H1: Fraunces 64 with opsz 144 and SOFT axis for warmth.
+   Lede: Fraunces 22 light.
+   Meta strip: three classifier slots (Document/Practice/Format).
+   ============================================================ */
+.hero {
+  padding: 100px 0 80px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.hero-eyebrow {
+  font-family: "Geist Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--green-deep);
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.hero-eyebrow::before {
+  content: "";
+  width: 32px;
+  height: 1px;
+  background: var(--green);
+}
+
+.hero h1 {
+  font-family: "Fraunces", serif;
+  font-weight: 380;
+  font-size: 64px;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  font-variation-settings: "opsz" 144, "SOFT" 30;
+  margin-bottom: 32px;
+  color: var(--obsidian);
+}
+
+.hero h1 em {
+  font-style: italic;
+  font-weight: 360;
+  font-variation-settings: "opsz" 144, "SOFT" 80;
+  color: var(--green-deep);
+}
+
+.hero-lede {
+  font-family: "Fraunces", serif;
+  font-weight: 350;
+  font-size: 22px;
+  line-height: 1.5;
+  color: var(--obsidian-soft);
+  max-width: 680px;
+  font-variation-settings: "opsz" 24;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 60px;
+  margin-top: 56px;
+  padding-top: 32px;
+  border-top: 1px solid var(--rule-soft);
+  font-family: "Geist Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--obsidian-muted);
+}
+
+.hero-meta div span {
+  display: block;
+  color: var(--obsidian);
+  font-family: "Geist", sans-serif;
+  font-size: 13px;
+  text-transform: none;
+  letter-spacing: 0;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* ============================================================
+   SECTIONS
+   Eyebrow: muted number, green label.
+   H2: Fraunces 40, italicized green-deep emphasis on the load
+   bearing clause via <em>.
+   ============================================================ */
+section {
+  padding: 88px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+section:last-of-type { border-bottom: none; }
+
+.section-eyebrow {
+  font-family: "Geist Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--green-deep);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.section-eyebrow .num {
+  color: var(--obsidian-muted);
+  font-weight: 500;
+}
+
+h2 {
+  font-family: "Fraunces", serif;
+  font-weight: 380;
+  font-size: 40px;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  font-variation-settings: "opsz" 72, "SOFT" 40;
+  margin-bottom: 36px;
+  max-width: 720px;
+  color: var(--obsidian);
+}
+
+h2 em {
+  font-style: italic;
+  font-variation-settings: "opsz" 72, "SOFT" 80;
+  color: var(--green-deep);
+}
+
+h3 {
+  font-family: "Fraunces", serif;
+  font-weight: 450;
+  font-size: 24px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  font-variation-settings: "opsz" 36;
+  margin-bottom: 14px;
+  color: var(--obsidian);
+}
+
+h4 {
+  font-family: "Geist", sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--obsidian);
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--obsidian-soft);
+  margin-bottom: 20px;
+  max-width: 720px;
+}
+
+p.lede {
+  font-family: "Fraunces", serif;
+  font-weight: 380;
+  font-size: 21px;
+  line-height: 1.5;
+  color: var(--obsidian);
+  margin-bottom: 32px;
+  font-variation-settings: "opsz" 24;
+}
+
+/* ============================================================
+   DOMAIN GRID : for diagnostic-landscape sections
+   ============================================================ */
+.domain-block { margin-bottom: 64px; }
+.domain-block:last-child { margin-bottom: 0; }
+
+.domain-block-title {
+  font-family: "Geist Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--obsidian);
+  padding-bottom: 16px;
+  margin-bottom: 32px;
+  border-bottom: 2px solid var(--obsidian);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.domain-block-title .count {
+  color: var(--green-deep);
+  font-weight: 500;
+}
+
+.domains {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px 56px;
+}
+
+.domain {
+  border-left: 2px solid var(--green);
+  padding-left: 24px;
+}
+
+.domain-num {
+  font-family: "Geist Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--green-deep);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.domain-name {
+  font-family: "Fraunces", serif;
+  font-weight: 500;
+  font-size: 19px;
+  line-height: 1.3;
+  margin-bottom: 8px;
+  color: var(--obsidian);
+  font-variation-settings: "opsz" 24;
+}
+
+.domain p {
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 0;
+  color: var(--obsidian-soft);
+}
+
+/* ============================================================
+   LENS BLOCK : cross-cutting concerns or differentiator sets
+   ============================================================ */
+.lens-block {
+  background: var(--vellum-deep);
+  padding: 40px 44px;
+  margin-top: 16px;
+  border-left: 3px solid var(--obsidian);
+}
+
+.lens-block h4 { margin-bottom: 24px; }
+.lens-block .lens { margin-bottom: 22px; }
+.lens-block .lens:last-child { margin-bottom: 0; }
+
+.lens-name {
+  font-family: "Fraunces", serif;
+  font-weight: 500;
+  font-size: 17px;
+  color: var(--obsidian);
+  margin-bottom: 4px;
+  font-variation-settings: "opsz" 18;
+}
+
+.lens p {
+  font-size: 15px;
+  line-height: 1.55;
+  margin-bottom: 0;
+}
+
+/* ============================================================
+   CONTEXT CARDS : multiple framings of the same engagement
+   ============================================================ */
+.contexts {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin-top: 8px;
+}
+
+.context {
+  background: var(--vellum);
+  padding: 36px 40px;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.context-label {
+  font-family: "Geist Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--obsidian);
+  border-top: 2px solid var(--green);
+  padding-top: 12px;
+}
+
+.context-label .num {
+  color: var(--obsidian-muted);
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.context-name {
+  font-family: "Fraunces", serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--obsidian);
+  text-transform: none;
+  letter-spacing: -0.01em;
+  margin-top: 6px;
+  font-variation-settings: "opsz" 24;
+}
+
+.context-body p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.context-body p:last-child { margin-bottom: 0; }
+
+.context-meta {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule-soft);
+  font-family: "Geist Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--obsidian-muted);
+  text-transform: uppercase;
+}
+
+.context-meta strong {
+  color: var(--green-deep);
+  font-weight: 500;
+}
+
+/* ============================================================
+   TIER TABLE : tiered depth or service-level structures
+   ============================================================ */
+.tiers {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin-top: 8px;
+}
+
+.tier {
+  background: var(--vellum);
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tier-mark {
+  font-family: "Geist Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--obsidian-muted);
+  margin-bottom: 8px;
+}
+
+.tier-name {
+  font-family: "Fraunces", serif;
+  font-size: 32px;
+  font-weight: 400;
+  margin-bottom: 4px;
+  color: var(--obsidian);
+  font-variation-settings: "opsz" 48, "SOFT" 30;
+  letter-spacing: -0.015em;
+}
+
+.tier-duration {
+  font-family: "Geist Mono", monospace;
+  font-size: 12px;
+  color: var(--green-deep);
+  margin-bottom: 24px;
+  letter-spacing: 0.04em;
+}
+
+.tier p {
+  font-size: 15px;
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+
+.tier-output {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule-soft);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--obsidian);
+}
+
+.tier-output strong {
+  font-family: "Geist Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green-deep);
+  font-weight: 500;
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* ============================================================
+   PROCESS STEPS
+   80px column, 36px italic Fraunces with SOFT 80 axis
+   ============================================================ */
+.process { margin-top: 24px; }
+
+.process-step {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 32px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+
+.process-step:last-child { border-bottom: none; }
+
+.process-step .step-num {
+  font-family: "Fraunces", serif;
+  font-size: 36px;
+  font-weight: 350;
+  color: var(--green-deep);
+  line-height: 1;
+  font-variation-settings: "opsz" 72, "SOFT" 80;
+  font-style: italic;
+}
+
+.process-step h3 {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.process-step p {
+  font-size: 16px;
+  margin-bottom: 0;
+}
+
+/* ============================================================
+   CALLOUT BOX : declarative engagement-model statements only
+   Not for pricing variables. Not for website-tile patterns.
+   Used sparingly, typically once per document.
+   ============================================================ */
+.callout {
+  background: var(--vellum-deep);
+  border-left: 3px solid var(--green);
+  padding: 28px 32px;
+  margin: 28px 0;
+  max-width: 560px;
+}
+
+.callout-label {
+  font-family: "Geist Mono", monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--obsidian);
+  margin-bottom: 10px;
+}
+
+.callout-headline {
+  font-family: "Fraunces", serif;
+  font-weight: 500;
+  font-size: 22px;
+  color: var(--green-deep);
+  margin-bottom: 14px;
+  line-height: 1.25;
+  font-variation-settings: "opsz" 24;
+}
+
+.callout-meta {
+  display: flex;
+  justify-content: space-between;
+  font-family: "Geist", sans-serif;
+  font-size: 14px;
+  color: var(--obsidian-muted);
+  border-top: 1px solid var(--rule);
+  padding-top: 12px;
+}
+
+.callout-meta strong {
+  color: var(--obsidian);
+  font-weight: 500;
+}
+
+/* ============================================================
+   CHECK-LIST : green-checkmark scannable lists
+   For qualifiers, scope items, selection criteria.
+   Not for pricing variables. Not for sequential steps.
+   ============================================================ */
+.check-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 28px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 720px;
+}
+
+.check-list li {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 12px;
+  align-items: start;
+  font-family: "Geist", sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--obsidian-soft);
+}
+
+.check-list li::before {
+  content: "✓";
+  color: var(--green);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+/* ============================================================
+   FOOTER : dark obsidian variant (curated as canonical)
+   ============================================================ */
+footer {
+  background: var(--obsidian);
+  color: var(--silver);
+  padding: 80px 0 48px;
+  margin-top: 0;
+}
+
+footer .page { max-width: 880px; }
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 50px;
+}
+
+.footer-brand {
+  font-family: "Fraunces", serif;
+  font-size: 22px;
+  font-weight: 450;
+  color: var(--vellum);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+  font-variation-settings: "opsz" 24;
+}
+
+.footer-tag {
+  font-family: "Geist Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--green);
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.footer-grid p {
+  font-size: 14px;
+  line-height: 1.55;
+  margin-bottom: 6px;
+  color: var(--silver);
+  max-width: none;
+}
+
+.footer-col h4 {
+  font-family: "Geist Mono", monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  margin-bottom: 14px;
+  color: var(--silver-light);
+  text-transform: uppercase;
+}
+
+.footer-col p { font-size: 14px; margin-bottom: 6px; }
+
+.footer-bottom {
+  padding-top: 28px;
+  border-top: 1px solid rgba(197, 201, 208, 0.18);
+  display: flex;
+  justify-content: space-between;
+  font-family: "Geist Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--silver);
+}
+
+.footer-license {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(197, 201, 208, 0.10);
+  font-family: "Geist", sans-serif;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--silver);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.footer-license a {
+  color: var(--green);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(45, 122, 77, 0.4);
+}
+
+.footer-license a:hover { border-bottom-color: var(--green); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 760px) {
+  .page { padding: 0 28px; }
+  .hero { padding: 60px 0 50px; }
+  .hero h1 { font-size: 40px; }
+  .hero-lede { font-size: 18px; }
+  .hero-meta { flex-direction: column; gap: 24px; }
+  section { padding: 60px 0; }
+  h2 { font-size: 30px; }
+  .domains { grid-template-columns: 1fr; }
+  .context { grid-template-columns: 1fr; gap: 16px; }
+  .tiers { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  .process-step { grid-template-columns: 1fr; gap: 8px; }
+  .callout { max-width: 100%; padding: 22px 24px; }
+}
+
+/* ============================================================
+   PRINT
+   ============================================================ */
+@media print {
+  body { background: white; font-size: 11pt; }
+  .page { max-width: 100%; padding: 0 0.5in; }
+  section { padding: 24pt 0; page-break-inside: avoid; }
+  .domains { grid-template-columns: 1fr 1fr; }
+  h1 { font-size: 32pt !important; }
+  h2 { font-size: 20pt !important; }
+  footer { background: white; color: var(--obsidian); }
+  footer * { color: var(--obsidian) !important; }
+  .footer-tag { color: var(--green-deep) !important; }
+  .callout { break-inside: avoid; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand"><span class="brand-mark"></span>Loxley Advisory Group</div>
+      <div>AI Readiness &middot; Engagement Arc</div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-eyebrow">The Engagement</div>
+    <h1>What to expect. <em>And what we need from you to get there.</em></h1>
+    <p class="hero-lede">This document covers the five phases of the engagement, your role in each, and what the finished assessment delivers. Keep it alongside the Stage 0 intake package.</p>
+    <div class="hero-meta">
+      <div>Document<span>Engagement Arc</span></div>
+      <div>Practice<span>AI Readiness</span></div>
+      <div>Format<span>Kickoff Reference</span></div>
+    </div>
+  </section>
+
+
+  <!-- 01 THE ARC -->
+  <section>
+    <div class="section-eyebrow">
+      <span class="num">01</span>
+      <span>The Arc</span>
+    </div>
+    <h2>Five phases from kickoff to report. <em>Each one depends on the previous.</em></h2>
+    <p class="lede">The engagement runs in sequence. Phases overlap where the work allows, but interviews do not begin before document review, and analysis does not begin before interviews are complete.</p>
+    <div class="process">
+      <div class="process-step">
+        <div class="step-num">i</div>
+        <div>
+          <h3>Kickoff</h3>
+          <p>The engagement begins here. We review the scope, confirm the initiatives under assessment, identify the SPOC, and hand over the Stage 0 intake package. Access provisioning requests begin today.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">ii</div>
+        <div>
+          <h3>Intake</h3>
+          <p>Your SPOC coordinates document collection and questionnaire distribution across the relevant stakeholders. We review materials as they arrive. What comes back, and in what form, shapes the interview schedule. Intake typically runs through the first week after kickoff.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">iii</div>
+        <div>
+          <h3>Interviews and Observation</h3>
+          <p>Structured sessions with the roles identified in the intake package, plus at least one live walkthrough of each AI initiative in its operational environment. Interviews are conducted individually. Workforce sessions are held without supervisors present and are treated as confidential. This phase typically runs through weeks two and three.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">iv</div>
+        <div>
+          <h3>Analysis</h3>
+          <p>We synthesize findings across the four dimensions, score each dimension, and sequence the remediation roadmap by dependency. No additional access or stakeholder time is required during this phase. Analysis runs in parallel with the tail end of interviews and typically completes within one week of the final session.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">v</div>
+        <div>
+          <h3>Report and Readout</h3>
+          <p>The written report is delivered before the readout session. Read it before we meet. The readout is structured to support a decision, not to present findings for further deliberation. Questions about executing the remediation roadmap are addressed in a separate conversation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 YOUR ROLE -->
+  <section>
+    <div class="section-eyebrow">
+      <span class="num">02</span>
+      <span>Your Role</span>
+    </div>
+    <h2>Three responsibilities on your side. <em>The engagement moves as fast as you fulfill them.</em></h2>
+    <p>The SPOC you identified at kickoff coordinates all three. They do not need to be a subject-matter expert. They need the organizational access and authority to move things across business units.</p>
+
+    <div class="domains">
+      <div class="domain">
+        <span class="domain-num">Responsibility 01</span>
+        <div class="domain-name">Document Collection</div>
+        <p>Gather and share the materials listed in the Stage 0 intake package. Share what exists and note what does not. Do not delay sending partial responses while waiting for everything to be complete. The state of your documentation is part of what we are assessing. Gaps discovered early allow us to plan around them; gaps discovered mid-engagement create pressure that benefits no one.</p>
+      </div>
+      <div class="domain">
+        <span class="domain-num">Responsibility 02</span>
+        <div class="domain-name">Questionnaire Distribution</div>
+        <p>Distribute the four stakeholder questionnaires to the named individuals and confirm they return responses at least two business days before their scheduled interview. Responses should be completed independently. Written responses allow the interview to focus on depth and follow-up rather than covering context that could have been submitted in advance.</p>
+      </div>
+      <div class="domain">
+        <span class="domain-num">Responsibility 03</span>
+        <div class="domain-name">Interview and Access Coordination</div>
+        <p>Confirm availability for all roles in the interview roster and initiate access provisioning for the systems and environments listed in the intake package. Access provisioning reliably takes longer than expected. Starting it at kickoff is the most reliable way to have access ready when the assessment reaches that stage.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 THE DELIVERABLE -->
+  <section>
+    <div class="section-eyebrow">
+      <span class="num">03</span>
+      <span>The Deliverable</span>
+    </div>
+    <h2>A written report and a live readout. <em>The report arrives before the conversation begins.</em></h2>
+    <p class="lede">The report is the primary artifact. The readout is a working session built on the assumption that you have read it.</p>
+    <p>The report opens with a Red, Yellow, and Green scorecard across the four assessment dimensions: Production Readiness, Economic Viability, Operational Reality, and Governance and Lineage. That scorecard is readable in 90 seconds and supports a budget or deployment decision without requiring the reader to process the full report.</p>
+    <p>The body of the report covers each dimension in detail: the current state assessment, the specific evidence supporting the rating, the failure modes that rating implies, and a sequenced remediation direction. The remediation roadmap is not a step-by-step implementation guide. It is designed to give your team enough context on each gap, its dependencies, and its priority that they can take it from there without requiring Loxley to be in the room. Executing against the roadmap as a managed engagement is available but not assumed.</p>
+    <p>The report closes with an overall readiness determination and a recommended next step: proceed, proceed with named conditions, or pause pending remediation of a specific finding. That determination is the answer to the question that opened the engagement.</p>
+  </section>
+
+  <!-- 04 CONTACT AND COMMUNICATION -->
+  <section>
+    <div class="section-eyebrow">
+      <span class="num">04</span>
+      <span>Contact</span>
+    </div>
+    <h2>One contact on each side. <em>Direct communication when something is blocked.</em></h2>
+    <p>Your SPOC is the primary coordination contact on your side. All document requests, interview scheduling, and access provisioning flow through them. We communicate directly with individual stakeholders only in the context of their scheduled sessions.</p>
+    <p>On our side, all engagement communication flows through the Principal assigned to your engagement. If a stakeholder is unavailable, a document cannot be located, or a system access request is blocked, flag it directly rather than working around it. The earlier we know about a constraint, the more we can plan around it without affecting the engagement timeline.</p>
+    <ul class="check-list">
+      <li>Flag unavailable stakeholders as soon as you know, not the week their interview is scheduled</li>
+      <li>Share documents as they become available rather than waiting until the full list is assembled</li>
+      <li>If a document does not exist or cannot be located, note that directly rather than leaving the request open</li>
+      <li>Confirm access provisioning is initiated within the first week, not the first day interviews are needed</li>
+    </ul>
+  </section>
+
+
+
+</div>
+
+<footer>
+  <div class="page">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Loxley Advisory Group</div>
+        <div class="footer-tag">Modernization Without Volatility</div>
+        <p>Fractional CIO and CTO leadership, technical due diligence, and AI strategy for private-equity-backed and growth-stage companies.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Practice</h4>
+        <p>Technical Due Diligence</p>
+        <p>Fractional Leadership</p>
+        <p>Health Assessments</p>
+        <p>AI Readiness</p>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>jason.hood@loxleyadvisory.com</p>
+        <p>Keller, Texas</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>Loxley Advisory Group &middot; AI Readiness Assessment</div>
+      <div>Engagement Arc &middot; v1.0</div>
+    </div>
+    <div class="footer-license">
+      &copy; Loxley Advisory Group LLC. Licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>. You may share this material with attribution. Commercial use and derivative works are not permitted.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Readiness Diagnostic — Loxley Advisory Group</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --obsidian: #0F1419;
+  --obsidian-soft: #1F2429;
+  --obsidian-muted: #4A5159;
+  --vellum: #F5F1E8;
+  --vellum-deep: #EDE8DC;
+  --vellum-warm: #F8F5EE;
+  --green: #2D7A4D;
+  --green-deep: #1F5A37;
+  --silver: #C5C9D0;
+  --rule: rgba(15,20,25,0.12);
+  --rule-soft: rgba(15,20,25,0.06);
+  --score-green: #2D7A4D;
+  --score-yellow: #C9A93B;
+  --score-red: #B84444;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: "Geist", sans-serif;
+  background: var(--obsidian);
+  color: var(--vellum);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+.shell {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 32px 80px;
+}
+
+/* Topbar */
+.topbar {
+  border-bottom: 1px solid rgba(245,241,232,0.1);
+  padding: 20px 0;
+}
+.topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "Geist Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(197,201,208,0.45);
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--vellum);
+  font-weight: 500;
+}
+.brand-mark {
+  width: 9px; height: 9px;
+  background: var(--green);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+/* Hero (shared) */
+.hero {
+  padding: 56px 0 44px;
+  border-bottom: 1px solid rgba(245,241,232,0.08);
+}
+.hero-eyebrow {
+  font-family: "Geist Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hero-eyebrow::before {
+  content: "";
+  width: 22px; height: 1px;
+  background: var(--green);
+}
+.hero h1 {
+  font-family: "Fraunces", serif;
+  font-weight: 360;
+  font-size: 46px;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  font-variation-settings: "opsz" 144, "SOFT" 30;
+  color: var(--vellum);
+  margin-bottom: 16px;
+}
+.hero h1 em {
+  font-style: italic;
+  font-weight: 340;
+  font-variation-settings: "opsz" 144, "SOFT" 80;
+  color: var(--green);
+}
+.hero-lede {
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(197,201,208,0.75);
+  max-width: 560px;
+  margin-bottom: 24px;
+}
+.hero-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.pill {
+  font-family: "Geist Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(197,201,208,0.45);
+  border: 1px solid rgba(197,201,208,0.14);
+  padding: 4px 12px;
+}
+.pill strong { color: var(--green); font-weight: 500; }
+
+/* ============================================================
+   CONTACT GATE
+   ============================================================ */
+#gate { display: block; }
+
+.gate-form {
+  padding: 44px 0;
+}
+
+.gate-intro {
+  margin-bottom: 32px;
+}
+.gate-intro-label {
+  font-family: "Geist Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 10px;
+}
+.gate-intro p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(197,201,208,0.65);
+  max-width: 520px;
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.field label {
+  font-family: "Geist Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(197,201,208,0.45);
+}
+.field input, .field select {
+  background: rgba(245,241,232,0.04);
+  border: 1px solid rgba(245,241,232,0.12);
+  color: var(--vellum);
+  font-family: "Geist", sans-serif;
+  font-size: 14px;
+  padding: 12px 14px;
+  outline: none;
+  transition: border-color 0.15s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.field input::placeholder { color: rgba(197,201,208,0.25); }
+.field input:focus, .field select:focus {
+  border-color: rgba(45,122,77,0.5);
+}
+.field select option { background: var(--obsidian); }
+
+.gate-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 8px;
+}
+.gate-privacy {
+  font-size: 12px;
+  color: rgba(197,201,208,0.3);
+  max-width: 360px;
+  line-height: 1.5;
+}
+
+.btn-primary {
+  font-family: "Geist Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  background: var(--green);
+  color: var(--vellum);
+  border: none;
+  padding: 15px 32px;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+.btn-primary:hover { background: var(--green-deep); }
+.btn-primary:disabled {
+  background: rgba(45,122,77,0.25);
+  color: rgba(245,241,232,0.3);
+  cursor: not-allowed;
+}
+
+/* ============================================================
+   ASSESSMENT
+   ============================================================ */
+#assessment { display: none; }
+
+.progress-wrap {
+  padding: 24px 0 0;
+  position: sticky;
+  top: 0;
+  background: var(--obsidian);
+  z-index: 10;
+  border-bottom: 1px solid rgba(245,241,232,0.08);
+}
+.progress-track {
+  height: 2px;
+  background: rgba(245,241,232,0.07);
+  margin-bottom: 14px;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--green);
+  transition: width 0.35s ease;
+  width: 0%;
+}
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 14px;
+}
+.progress-label {
+  font-family: "Geist Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(197,201,208,0.35);
+}
+.progress-count {
+  font-family: "Fraunces", serif;
+  font-size: 13px;
+  color: rgba(197,201,208,0.45);
+  font-variation-settings: "opsz" 18;
+}
+.progress-count strong { color: var(--vellum); font-weight: 500; }
+
+.dim-section { padding: 44px 0 8px; }
+
+.dim-header {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(245,241,232,0.08);
+}
+.dim-num {
+  font-family: "Geist Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--green);
+  flex-shrink: 0;
+}
+.dim-name {
+  font-family: "Fraunces", serif;
+  font-weight: 500;
+  font-size: 21px;
+  color: var(--vellum);
+  font-variation-settings: "opsz" 24;
+  letter-spacing: -0.01em;
+}
+
+.q-card {
+  margin-bottom: 16px;
+  background: rgba(245,241,232,0.03);
+  border: 1px solid rgba(245,241,232,0.07);
+  padding: 22px 24px;
+  transition: border-color 0.2s;
+}
+.q-card.answered {
+  border-color: rgba(45,122,77,0.28);
+  background: rgba(45,122,77,0.04);
+}
+.q-text {
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--vellum);
+  margin-bottom: 16px;
+  font-weight: 400;
+}
+
+/* Four-option grid */
+.q-options {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+.q-option { display: flex; flex-direction: column; }
+/* Visually hidden but keyboard-focusable — display:none removes from tab order */
+.q-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+/* Keyboard focus ring via :focus-within on the label wrapper */
+.q-option:focus-within .q-option-label {
+  border-color: rgba(245,241,232,0.45);
+  outline: 2px solid rgba(45,122,77,0.55);
+  outline-offset: 1px;
+}
+.q-option input:checked:focus + .q-option-label,
+.q-option input:checked + .q-option-label:focus-within {
+  outline-color: var(--green);
+}
+.q-option-label {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 10px 12px;
+  border: 1px solid rgba(245,241,232,0.10);
+  cursor: pointer;
+  transition: all 0.14s;
+  height: 100%;
+}
+.q-option input:checked + .q-option-label {
+  border-color: var(--green);
+  background: rgba(45,122,77,0.11);
+}
+.q-option-label:hover {
+  border-color: rgba(245,241,232,0.22);
+  background: rgba(245,241,232,0.04);
+}
+.q-option input:checked + .q-option-label:hover {
+  border-color: var(--green);
+  background: rgba(45,122,77,0.13);
+}
+.option-pts {
+  font-family: "Geist Mono", monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: rgba(197,201,208,0.3);
+}
+.q-option input:checked + .q-option-label .option-pts {
+  color: var(--green);
+}
+.option-text {
+  font-size: 12px;
+  line-height: 1.45;
+  color: rgba(197,201,208,0.6);
+}
+.q-option input:checked + .q-option-label .option-text {
+  color: var(--vellum);
+}
+
+.submit-section {
+  padding: 40px 0;
+  border-top: 1px solid rgba(245,241,232,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.submit-note {
+  font-size: 12px;
+  line-height: 1.5;
+  color: rgba(197,201,208,0.35);
+  max-width: 340px;
+}
+
+/* ============================================================
+   RESULTS
+   ============================================================ */
+#results { display: none; }
+
+.results-hero {
+  padding: 56px 0 44px;
+  border-bottom: 1px solid rgba(245,241,232,0.08);
+}
+.results-hero h2 {
+  font-family: "Fraunces", serif;
+  font-weight: 360;
+  font-size: 38px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-variation-settings: "opsz" 72, "SOFT" 30;
+  color: var(--vellum);
+  margin-bottom: 14px;
+}
+.results-hero h2 em {
+  font-style: italic;
+  font-weight: 340;
+  font-variation-settings: "opsz" 72, "SOFT" 80;
+  color: var(--green);
+}
+.results-name-line {
+  font-family: "Geist Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(197,201,208,0.4);
+  margin-bottom: 18px;
+}
+
+/* Scorecard */
+.scorecard {
+  background: var(--vellum-warm);
+  border: 1px solid rgba(15,20,25,0.14);
+  padding: 28px;
+  margin: 36px 0;
+}
+.scorecard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 18px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--rule);
+}
+.scorecard-title {
+  font-family: "Fraunces", serif;
+  font-weight: 500;
+  font-size: 17px;
+  color: var(--obsidian);
+  font-variation-settings: "opsz" 24;
+}
+.scorecard-sub {
+  font-family: "Geist Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--obsidian-muted);
+  margin-top: 3px;
+}
+.scorecard-stamp {
+  font-family: "Geist Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--green-deep);
+  border: 1px solid var(--green);
+  padding: 5px 10px;
+  text-transform: uppercase;
+}
+.verdict-strip {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  padding-bottom: 18px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--rule);
+  align-items: start;
+}
+.verdict-label {
+  font-family: "Geist Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green-deep);
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+.verdict-text {
+  font-family: "Fraunces", serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--obsidian);
+  font-variation-settings: "opsz" 18;
+}
+.counts {
+  display: flex;
+  gap: 18px;
+  flex-shrink: 0;
+}
+.count-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+}
+.count-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.count-pip {
+  width: 9px; height: 9px;
+  border-radius: 2px;
+}
+.count-num {
+  font-family: "Fraunces", serif;
+  font-size: 20px;
+  font-weight: 450;
+  color: var(--obsidian);
+  line-height: 1;
+  font-variation-settings: "opsz" 24;
+}
+.count-lbl {
+  font-family: "Geist Mono", monospace;
+  font-size: 9px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--obsidian-muted);
+  padding-left: 15px;
+}
+.score-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.score-row {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.score-row-head {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 4px;
+}
+.score-pip {
+  width: 11px; height: 11px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.score-domain {
+  font-family: "Geist", sans-serif;
+  font-size: 13px;
+  color: var(--obsidian);
+  font-weight: 500;
+}
+.score-finding {
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: var(--obsidian-muted);
+  padding-left: 20px;
+}
+
+/* Observations */
+.observations {
+  padding: 36px 0;
+  border-bottom: 1px solid rgba(245,241,232,0.08);
+}
+.obs-label {
+  font-family: "Geist Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.obs-label::before {
+  content: "";
+  width: 18px; height: 1px;
+  background: var(--green);
+}
+.obs-list { display: flex; flex-direction: column; gap: 14px; }
+.obs-item {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(197,201,208,0.7);
+}
+.obs-item::before {
+  content: "→";
+  color: var(--green);
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+/* CTA */
+.cta-block { padding: 40px 0; }
+.cta-inner {
+  background: rgba(45,122,77,0.08);
+  border: 1px solid rgba(45,122,77,0.2);
+  padding: 32px 36px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 28px;
+  align-items: center;
+}
+.cta-heading {
+  font-family: "Fraunces", serif;
+  font-weight: 450;
+  font-size: 21px;
+  color: var(--vellum);
+  font-variation-settings: "opsz" 24;
+  margin-bottom: 7px;
+  letter-spacing: -0.01em;
+}
+.cta-body {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: rgba(197,201,208,0.6);
+}
+.cta-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.cta-actions a {
+  font-family: "Geist Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: var(--green);
+  color: var(--vellum);
+  text-decoration: none;
+  padding: 14px 26px;
+  display: block;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+.cta-actions a:hover { background: var(--green-deep); }
+.cta-sub {
+  font-family: "Geist Mono", monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.10em;
+  color: rgba(197,201,208,0.3);
+  text-align: center;
+}
+
+.retake {
+  padding: 16px 0 0;
+  text-align: center;
+}
+.retake button {
+  font-family: "Geist Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  color: rgba(197,201,208,0.28);
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.retake button:hover { color: rgba(197,201,208,0.5); }
+
+/* Footer */
+.footer-bar {
+  border-top: 1px solid rgba(245,241,232,0.08);
+  padding: 24px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-brand {
+  font-family: "Fraunces", serif;
+  font-size: 15px;
+  font-weight: 450;
+  color: rgba(245,241,232,0.3);
+  font-variation-settings: "opsz" 18;
+}
+.footer-tag {
+  font-family: "Geist Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(45,122,77,0.45);
+}
+
+/* Error */
+.field-error {
+  font-family: "Geist Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: #B84444;
+  display: none;
+}
+.field.has-error input { border-color: rgba(184,68,68,0.5); }
+.field.has-error .field-error { display: block; }
+
+@media (max-width: 640px) {
+  .shell { padding: 0 20px 60px; }
+  .hero h1 { font-size: 32px; }
+  .fields { grid-template-columns: 1fr; }
+  .q-options { grid-template-columns: 1fr 1fr; }
+  .score-grid { grid-template-columns: 1fr; }
+  .verdict-strip { grid-template-columns: 1fr; }
+  .cta-inner { grid-template-columns: 1fr; }
+  .gate-footer { flex-direction: column; align-items: flex-start; }
+  .submit-section { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand"><span class="brand-mark"></span>Loxley Advisory Group</div>
+      <div>AI Readiness Diagnostic</div>
+    </div>
+  </header>
+
+  <!-- Shared hero -->
+  <div class="hero">
+    <div class="hero-eyebrow">Rapid Diagnostic</div>
+    <h1>Is your AI program <em>ready for production?</em></h1>
+    <p class="hero-lede">Twelve questions across four structural dimensions. Five minutes. A scored readiness profile that surfaces the gaps most organizations discover too late.</p>
+    <div class="hero-pills">
+      <span class="pill"><strong>12</strong> Questions</span>
+      <span class="pill"><strong>4</strong> Dimensions</span>
+      <span class="pill"><strong>~5 min</strong></span>
+      <span class="pill">Scored instantly</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       GATE
+       ============================================================ -->
+  <div id="gate">
+    <div class="gate-form">
+      <div class="gate-intro">
+        <div class="gate-intro-label">Before you begin</div>
+        <p>Tell us who you are and we will send you your scored results. Your responses stay in your browser — nothing is transmitted until you choose to share it.</p>
+      </div>
+
+      <div class="fields">
+        <div class="field" id="field-name">
+          <label for="inp-name">Full Name</label>
+          <input type="text" id="inp-name" placeholder="Jason Hood" autocomplete="name">
+          <span class="field-error">Please enter your name</span>
+        </div>
+        <div class="field" id="field-company">
+          <label for="inp-company">Company</label>
+          <input type="text" id="inp-company" placeholder="Acme Corp" autocomplete="organization">
+          <span class="field-error">Please enter your company</span>
+        </div>
+        <div class="field" id="field-email">
+          <label for="inp-email">Work Email</label>
+          <input type="email" id="inp-email" placeholder="you@company.com" autocomplete="email">
+          <span class="field-error">Please enter a valid email</span>
+        </div>
+        <div class="field">
+          <label for="inp-role">Role</label>
+          <select id="inp-role">
+            <option value="" disabled selected>Select your role</option>
+            <option value="cto">CTO / Chief Architect</option>
+            <option value="cio">CIO / CDO</option>
+            <option value="ceo">CEO / President</option>
+            <option value="cfo">CFO / COO</option>
+            <option value="pe">PE Sponsor / Operating Partner</option>
+            <option value="vp">VP / Director</option>
+            <option value="board">Board Member</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="gate-footer">
+        <p class="gate-privacy">Your information is used only to follow up on your results. It is not shared with third parties or used for marketing without your consent.</p>
+        <button class="btn-primary" onclick="submitGate()">Begin the Diagnostic →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       ASSESSMENT
+       ============================================================ -->
+  <div id="assessment">
+
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+      <div class="progress-info">
+        <span class="progress-label">Progress</span>
+        <span class="progress-count"><strong id="answered-count">0</strong> of 12 answered</span>
+      </div>
+    </div>
+
+    <form id="diagnostic-form">
+
+      <!-- DIM 01: MODEL AUTONOMY -->
+      <div class="dim-section">
+        <div class="dim-header">
+          <span class="dim-num">Dimension 01</span>
+          <span class="dim-name">Model Autonomy</span>
+        </div>
+
+        <div class="q-card" id="card-q1">
+          <div class="q-text">What percentage of AI-generated recommendations currently proceed without human review before action is taken?</div>
+          <div class="q-options">
+            <label class="q-option"><input type="radio" name="q1" value="0">
+              <div class="q-option-label"><span class="option-pts">0 pts</span><span class="option-text">Under 10% — nearly every output is reviewed</span></div></label>
+            <label class="q-option"><input type="radio" name="q1" value="1">
+              <div class="q-option-label"><span class="option-pts">1 pt</span><span class="option-text">10–30% — most outputs go to human review</span></div></label>
+            <label class="q-option"><input type="radio" name="q1" value="2">
+              <div class="q-option-label"><span class="option-pts">2 pts</span><span class="option-text">30–60% — meaningful automation with significant review still occurring</span></div></label>
+            <label class="q-option"><input type="radio" name="q1" value="3">
+              <div class="q-option-label"><span class="option-pts">3 pts</span><span class="option-text">Over 60% — human review reserved for exceptions</span></div></label>
+          </div>
+        </div>
+
+        <div class="q-card" id="card-q2">
+          <div class="q-text">How formally are the criteria for autonomous AI action versus human review defined and applied in practice?</div>
+          <div class="q-options">
+            <label class="q-option"><input type="radio" name="q2" value="0">
+              <div class="q-option-label"><span class="option-pts">0 pts</span><span class="option-text">Not defined — review decisions are made case by case</span></div></label>
+            <label class="q-option"><input type="radio" name="q2" value="1">
+              <div class="q-option-label"><span class="option-pts">1 pt</span><span class="option-text">Informally understood — criteria exist but are not written down</span></div></label>
+            <label class="q-option"><input type="radio" name="q2" value="2">
+              <div class="q-option-label"><span class="option-pts">2 pts</span><span class="option-text">Documented but inconsistent — written criteria exist but are not consistently applied</span></div></label>
+            <label class="q-option"><input type="radio" name="q2" value="3">
+              <div class="q-option-label"><span class="option-pts">3 pts</span><span class="option-text">Formally defined and consistently applied — documented threshold criteria govern every case</span></div></label>
+          </div>
+        </div>
+
+        <div class="q-card" id="card-q3">
+          <div class="q-text">Can the operators who act on AI recommendations explain the basis for a specific output to a downstream stakeholder — a customer, shipper, regulator — if challenged?</div>
+          <div class="q-options">
+            <label class="q-option"><input type="radio" name="q3" value="0">
+              <div class="q-option-label"><span class="option-pts">0 pts</span><span class="option-text">No — operators cannot explain why the system produced a specific recommendation</span></div></label>
+            <label class="q-option"><input type="radio" name="q3" value="1">
+              <div class="q-option-label"><span class="option-pts">1 pt</span><span class="option-text">Rarely — operators can give general context but not specific reasoning</span></div></label>
+            <label class="q-option"><input type="radio" name="q3" value="2">
+              <div class="q-option-label"><span class="option-pts">2 pts</span><span class="option-text">Sometimes — the system surfaces some context but the audit trail is incomplete</span></div></label>
+            <label class="q-option"><input type="radio" name="q3" value="3">
+              <div class="q-option-label"><span class="option-pts">3 pts</span><span class="option-text">Yes — the system provides operators with the context they need to defend outputs downstream</span></div></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- DIM 02: DATA LIQUIDITY -->
+      <div class="dim-section">
+        <div class="dim-header">
+          <span class="dim-num">Dimension 02</span>
+          <span class="dim-name">Data Liquidity and Feedback Loops</span>
+        </div>
+
+        <div class="q-card" id="card-q4">
+          <div class="q-text">How does the AI system receive the data it needs for inference relative to when the underlying events occur?</div>
+          <div class="q-options">
+            <label class="q-option"><input type="radio" name="q4" value="0">
+              <div class="q-option-label"><span class="option-pts">0 pts</span><span class="option-text">Batch only — data refreshes on a fixed schedule with material latency</span></div></label>
+            <label class="q-option"><input type="radio" name="q4" value="1">
+              <div class="q-option-label"><span class="option-pts">1 pt</span><span class="option-text">Mostly batch — some inputs are near-real-time but core data is still batch</span></div></label>
+            <label class="q-option"><input type="radio" name="q4" value="2">
+              <div class="q-option-label"><span class="option-pts">2 pts</span><span class="option-text">Partially real time — most inputs arrive quickly but latency issues remain in some data paths</span></div></label>
+            <label class="q-option"><input type="radio" name="q4" value="3">
+              <div class="q-option-label"><span class="option-pts">3 pts</span><span class="option-text">Real time — inference data arrives within seconds of the triggering event across all key inputs</span></div></label>
+          </div>
+        </div>
+
+        <div class="q-card" id="card-q5">
+          <div class="q-text">How does the organization capture whether AI outputs were correct after the fact?</div>
+          <div class="q-options">
+            <label class="q-option"><input type="radio" name="q5" value="0">
+              <div class="q-option-label"><span class="option-pts">0 pts</span><span class="option-text">It does not — there is no mechanism to capture outcome data</span></div></label>
+            <label class="q-option"><input type="radio" name="q5" value="1">
+              <div class="q-option-label"><span class="option-pts">1 pt</span><span class="option-text">Manual and periodic — a sample of outcomes is reviewed on a schedule</span></div></label>
+            <label class="q-option"><input type="radio" name="q5" value="2">
+              <div class="q-option-label"><span class="option-pts">2 pts</span><span class="option-text">Partially automated — some outcomes are captured automatically but coverage is incomplete</span></div></label>
+            <label class="q-option"><input type="radio" name="q5" value="3">
+              <div class="q-option-label"><span class="option-pts">3 pts</span><span class="option-text">Automated — ground-truth outcome data flows back to monitoring infrastructure continuously</span></div></label>
+          </div>
+        </div>
+
+        <div class="q-card" id="card-q6">
+          <div class="q-text">What governs the relationship between the teams that supply data and the AI systems that consume it?</div>
+          <div class="q-options">
+            <label class="q-option"><input type="radio" name="q6" value="0">
+              <div class="q-option-label"><span class="option-pts">0 pts</span><span class="option-text">Nothing formal — data dependencies are implicit assumptions</span></div></label>
+            <label class="q-option"><input type="radio" name="q6" value="1">
+              <div class="q-option-label"><span class="option-pts">1 pt</span><span class="option-text">Informal understanding — expectations exist but are not documented or enforced</span></div></label>
+            <label class="q-option"><input type="radio" name="q6" value="2">
+              <div class="q-option-label"><span class="option-pts">2 pts</span><span class="option-text">Partial contracts — some data paths have documented SLAs but coverage is incomplete</span></div></label>
+            <label class="q-option"><input type="radio" name="q6" value="3">
+              <div class="q-option-label"><span class="option-pts">3 pts</span><span class="option-text">Formal data contracts — schema, freshness, and availability are defined and actively maintained</span></div></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- DIM 03: COMPUTE / MARGIN -->
+      <div class="dim-section">
+        <div class="dim-header">
+          <span class="dim-num">Dimension 03</span>
+          <span class="dim-name">Compute and Margin Ratio</span>
+        </div>
+
+        <div class="q-card" id="card-q7">
+          <div class="q-text">How thoroughly have production inference costs been modeled — including peak load, redundancy, and the full inference stack beyond API call costs?</div>
+          <div class="q-options">
+            <label class="q-option"><input type="radio" name="q7" value="0">
+              <div class="q-option-label"><span class="option-pts">0 pts</span><span class="option-text">Not at all — cost estimates come from pilot API costs only</span></div></label>
+            <label class="q-option"><input type="radio" name="q7" value="1">
+              <div class="q-option-label"><span class="option-pts">1 pt</span><span class="option-text">High-level only — production costs have been estimated but not validated against a full stack</span></div></label>
+            <label class="q-option"><input type="radio" name="q7" value="2">
+              <div class="q-option-label"><span class="option-pts">2 pts</span><span class="option-text">Partially — full-stack costs have been modeled but not tested at production volume</span></div></label>
+            <label class="q-option"><input type="radio" name="q7" value="3">
+              <div class="q-option-label"><span class="option-pts">3 pts</span><span class="option-text">Fully — full-stack inference costs at production volume are documented and validated</span></div></label>
+          </div>
+        </div>
+
+        <div class="q-card" id="card-q8">
+          <div class="q-text">For initiatives designed to displace manual work, how well understood is the actual cost of the manual process being replaced?</div>
+          <div class="q-options">
+            <label class="q-option"><input type="radio" name="q8" value="0">
+              <div class="q-option-label"><span class="option-pts">0 pts</span><span class="option-text">Not measured — the business case relies on assumed displacement value</span></div></label>
+            <label class="q-option"><input type="radio" name="q8" value="1">
+              <div class="q-option-label"><span class="option-pts">1 pt</span><span class="option-text">Estimated — high-level labor cost is known but throughput per unit has not been measured</span></div></label>
+            <label class="q-option"><input type="radio" name="q8" value="2">
+              <div class="q-option-label"><span class="option-pts">2 pts</span><span class="option-text">Mostly measured — throughput data exists but fully burdened unit cost has not been calculated</span></div></label>
+            <label class="q-option"><input type="radio" name="q8" value="3">
+              <div class="q-option-label"><span class="option-pts">3 pts</span><span class="option-text">Fully measured — per-unit manual cost is documented from observed throughput at fully burdened labor cost</span></div></label>
+          </div>
+        </div>
+
+        <div class="q-card" id="card-q9">
+          <div class="q-text">At production volume, how does the cost of automation compare to the cost of the process it displaces?</div>
+          <div class="q-options">
+            <label class="q-option"><input type="radio" name="q9" value="0">
+              <div class="q-option-label"><span class="option-pts">0 pts</span><span class="option-text">Unknown — the comparison has not been made at production volume</span></div></label>
+            <label class="q-option"><input type="radio" name="q9" value="1">
+              <div class="q-option-label"><span class="option-pts">1 pt</span><span class="option-text">Unclear — the comparison has been made but the math depends on unvalidated assumptions</span></div></label>
+            <label class="q-option"><input type="radio" name="q9" value="2">
+              <div class="q-option-label"><span class="option-pts">2 pts</span><span class="option-text">Marginally favorable — automation is cheaper but the margin is thin</span></div></label>
+            <label class="q-option"><input type="radio" name="q9" value="3">
+              <div class="q-option-label"><span class="option-pts">3 pts</span><span class="option-text">Clearly favorable — automation is materially cheaper with a validated and defensible margin</span></div></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- DIM 04: GOVERNANCE & LINEAGE -->
+      <div class="dim-section">
+        <div class="dim-header">
+          <span class="dim-num">Dimension 04</span>
+          <span class="dim-name">Governance and Lineage</span>
+        </div>
+
+        <div class="q-card" id="card-q10">
+          <div class="q-text">How formal is the authority structure for approving AI initiatives for production deployment?</div>
+          <div class="q-options">
+            <label class="q-option"><input type="radio" name="q10" value="0">
+              <div class="q-option-label"><span class="option-pts">0 pts</span><span class="option-text">No authority defined — deployment decisions are made informally by whoever is driving the initiative</span></div></label>
+            <label class="q-option"><input type="radio" name="q10" value="1">
+              <div class="q-option-label"><span class="option-pts">1 pt</span><span class="option-text">Informally assumed — a person is expected to hold authority but it has not been documented</span></div></label>
+            <label class="q-option"><input type="radio" name="q10" value="2">
+              <div class="q-option-label"><span class="option-pts">2 pts</span><span class="option-text">Partially formal — authority is documented but review criteria or process are not</span></div></label>
+            <label class="q-option"><input type="radio" name="q10" value="3">
+              <div class="q-option-label"><span class="option-pts">3 pts</span><span class="option-text">Formally documented — named authority, defined criteria, and documented review process in place</span></div></label>
+          </div>
+        </div>
+
+        <div class="q-card" id="card-q11">
+          <div class="q-text">If a specific AI decision were challenged today by a customer, regulator, or acquirer, how quickly could your organization fully reconstruct it — data inputs, model version, and accountable owner?</div>
+          <div class="q-options">
+            <label class="q-option"><input type="radio" name="q11" value="0">
+              <div class="q-option-label"><span class="option-pts">0 pts</span><span class="option-text">It could not — decision logs either do not exist or are insufficient for reconstruction</span></div></label>
+            <label class="q-option"><input type="radio" name="q11" value="1">
+              <div class="q-option-label"><span class="option-pts">1 pt</span><span class="option-text">Days — logs exist but reconstruction requires manual correlation across multiple systems</span></div></label>
+            <label class="q-option"><input type="radio" name="q11" value="2">
+              <div class="q-option-label"><span class="option-pts">2 pts</span><span class="option-text">Hours — reconstruction is possible but requires significant engineering effort</span></div></label>
+            <label class="q-option"><input type="radio" name="q11" value="3">
+              <div class="q-option-label"><span class="option-pts">3 pts</span><span class="option-text">Within the hour — complete provenance is logged and the process has been tested</span></div></label>
+          </div>
+        </div>
+
+        <div class="q-card" id="card-q12">
+          <div class="q-text">How formally has the organization assessed the regulatory and privacy exposure of its AI initiatives?</div>
+          <div class="q-options">
+            <label class="q-option"><input type="radio" name="q12" value="0">
+              <div class="q-option-label"><span class="option-pts">0 pts</span><span class="option-text">Not assessed — compliance and privacy have not been formally engaged on AI initiatives</span></div></label>
+            <label class="q-option"><input type="radio" name="q12" value="1">
+              <div class="q-option-label"><span class="option-pts">1 pt</span><span class="option-text">Informally — awareness exists at the leadership level but no formal assessment has occurred</span></div></label>
+            <label class="q-option"><input type="radio" name="q12" value="2">
+              <div class="q-option-label"><span class="option-pts">2 pts</span><span class="option-text">Partially — compliance and privacy were consulted but a formal impact assessment was not completed</span></div></label>
+            <label class="q-option"><input type="radio" name="q12" value="3">
+              <div class="q-option-label"><span class="option-pts">3 pts</span><span class="option-text">Formally — documented risk and privacy impact assessments were completed before pilot launch</span></div></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="submit-section">
+        <p class="submit-note">Scores are calculated locally. No responses are transmitted.</p>
+        <button type="button" class="btn-primary" id="submit-btn" onclick="calculateResults()" disabled>
+          Score My Assessment →
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- ============================================================
+       RESULTS
+       ============================================================ -->
+  <div id="results">
+    <div class="results-hero">
+      <div class="results-name-line" id="results-name-line"></div>
+      <h2 id="results-heading"></h2>
+    </div>
+
+    <div class="scorecard">
+      <div class="scorecard-header">
+        <div>
+          <div class="scorecard-title">AI Readiness Diagnostic</div>
+          <div class="scorecard-sub" id="scorecard-sub"></div>
+        </div>
+        <div class="scorecard-stamp">LOXLEY · AIR</div>
+      </div>
+      <div class="verdict-strip">
+        <div>
+          <div class="verdict-label">Overall Assessment</div>
+          <div class="verdict-text" id="verdict-text"></div>
+        </div>
+        <div class="counts" id="counts-block"></div>
+      </div>
+      <div class="score-grid" id="score-grid"></div>
+    </div>
+
+    <div class="observations">
+      <div class="obs-label">What Your Answers Signal</div>
+      <div class="obs-list" id="obs-list"></div>
+    </div>
+
+    <div class="cta-block">
+      <div class="cta-inner">
+        <div>
+          <div class="cta-heading">Get the full picture.</div>
+          <div class="cta-body">This diagnostic surfaces the shape of the problem. The full AI Readiness Assessment documents it with evidence — scoring each dimension with precision across your specific initiatives and producing a prioritized remediation roadmap your team can act on.</div>
+        </div>
+        <div class="cta-actions">
+          <a href="https://loxleyadvisory.com/contact" target="_blank">Schedule a Conversation</a>
+          <div class="cta-sub">loxleyadvisory.com/contact</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="retake">
+      <button onclick="retake()">← Retake the diagnostic</button>
+    </div>
+  </div>
+
+  <div class="footer-bar">
+    <div class="footer-brand">Loxley Advisory Group</div>
+    <div class="footer-tag">Modernization Without Volatility</div>
+  </div>
+
+</div>
+
+<script>
+// ============================================================
+// STATE
+// ============================================================
+const STORAGE_KEY = 'loxley_air_diagnostic';
+
+let respondentName = '';
+let respondentCompany = '';
+
+const DIMENSIONS = [
+  { name: 'Model Autonomy',             qs: ['q1','q2','q3']    },
+  { name: 'Data Liquidity & Feedback',  qs: ['q4','q5','q6']    },
+  { name: 'Compute / Margin Ratio',     qs: ['q7','q8','q9']    },
+  { name: 'Governance & Lineage',       qs: ['q10','q11','q12'] },
+];
+
+// ============================================================
+// LOCALSTORAGE  —  save/restore progress across page refreshes
+// ============================================================
+function saveState() {
+  const answers = {};
+  document.querySelectorAll('input[type="radio"]:checked').forEach(el => {
+    answers[el.name] = el.value;
+  });
+  const state = {
+    gate: {
+      name:    document.getElementById('inp-name').value.trim(),
+      company: document.getElementById('inp-company').value.trim(),
+      email:   document.getElementById('inp-email').value.trim(),
+      role:    document.getElementById('inp-role').value,
+    },
+    answers,
+  };
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (_) {}
+}
+
+function clearState() {
+  try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
+}
+
+function restoreState() {
+  let state;
+  try { state = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch (_) {}
+  if (!state) return;
+
+  const g = state.gate || {};
+  if (g.name)    document.getElementById('inp-name').value    = g.name;
+  if (g.company) document.getElementById('inp-company').value = g.company;
+  if (g.email)   document.getElementById('inp-email').value   = g.email;
+  if (g.role)    document.getElementById('inp-role').value    = g.role;
+
+  const answers = state.answers || {};
+  Object.entries(answers).forEach(([name, value]) => {
+    const radio = document.querySelector(`input[name="${name}"][value="${value}"]`);
+    if (radio) {
+      radio.checked = true;
+      radio.closest('.q-card')?.classList.add('answered');
+    }
+  });
+
+  // If gate was previously completed, skip straight to assessment
+  if (Object.keys(answers).length > 0 && g.name && g.email) {
+    respondentName    = g.name;
+    respondentCompany = g.company;
+    document.getElementById('gate').style.display       = 'none';
+    document.getElementById('assessment').style.display = 'block';
+    updateProgress();
+  }
+}
+
+// ============================================================
+// GATE
+// ============================================================
+async function submitGate() {
+  const name    = document.getElementById('inp-name').value.trim();
+  const company = document.getElementById('inp-company').value.trim();
+  const email   = document.getElementById('inp-email').value.trim();
+  const role    = document.getElementById('inp-role').value;
+
+  const fName    = document.getElementById('field-name');
+  const fCompany = document.getElementById('field-company');
+  const fEmail   = document.getElementById('field-email');
+
+  fName.classList.remove('has-error');
+  fCompany.classList.remove('has-error');
+  fEmail.classList.remove('has-error');
+
+  let valid = true;
+  if (!name)    { fName.classList.add('has-error');    valid = false; }
+  if (!company) { fCompany.classList.add('has-error'); valid = false; }
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    fEmail.classList.add('has-error'); valid = false;
+  }
+  if (!valid) return;
+
+  respondentName    = name;
+  respondentCompany = company;
+
+  const btn = document.querySelector('#gate .btn-primary');
+  btn.disabled    = true;
+  btn.textContent = 'Starting\u2026';
+
+  // Submit to Formspree in background — never blocks the respondent
+  submitToFormspree(name, company, email, role);
+  saveState();
+
+  document.getElementById('gate').style.display       = 'none';
+  document.getElementById('assessment').style.display = 'block';
+  btn.disabled    = false;
+  btn.textContent = 'Begin the Diagnostic \u2192';
+  window.scrollTo(0, 0);
+}
+
+// Enter key submits gate form
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.getElementById('gate').style.display !== 'none') {
+    submitGate();
+  }
+});
+
+// ============================================================
+// PROGRESS
+// ============================================================
+document.querySelectorAll('input[type="radio"]').forEach(input => {
+  input.addEventListener('change', () => {
+    input.closest('.q-card').classList.add('answered');
+    updateProgress();
+    saveState();
+  });
+});
+
+function updateProgress() {
+  const answered = new Set(
+    [...document.querySelectorAll('input[type="radio"]:checked')].map(el => el.name)
+  );
+  const count = answered.size;
+  document.getElementById('answered-count').textContent = count;
+  document.getElementById('progress-fill').style.width  = `${(count / 12) * 100}%`;
+  document.getElementById('submit-btn').disabled        = count < 12;
+}
+
+// ============================================================
+// SCORING  (0-3 per question · max 9 per dimension)
+// Green 7-9 · Yellow 3-6 · Red 0-2
+// ============================================================
+function getVal(name) {
+  const el = document.querySelector(`input[name="${name}"]:checked`);
+  return el ? parseInt(el.value, 10) : 0;
+}
+
+function scoreToRating(score) {
+  if (score >= 7) return 'green';
+  if (score >= 3) return 'yellow';
+  return 'red';
+}
+
+function ratingLabel(r) {
+  return { green: 'Deployment-Ready', yellow: 'Developing', red: 'Gating' }[r];
+}
+
+function ratingColor(r) {
+  return { green: '#2D7A4D', yellow: '#C9A93B', red: '#B84444' }[r];
+}
+
+function calculateResults() {
+  const dimResults = DIMENSIONS.map(dim => {
+    const scores = dim.qs.map(getVal);
+    const total  = scores.reduce((a, b) => a + b, 0);
+    return { ...dim, scores, total, rating: scoreToRating(total) };
+  });
+
+  const counts = { green: 0, yellow: 0, red: 0 };
+  dimResults.forEach(d => counts[d.rating]++);
+
+  let heading, verdict;
+  if (counts.red >= 2) {
+    heading = 'Your AI program has <em>structural gaps that will block production.</em>';
+    verdict = 'Multiple dimensions have critical structural gaps. Production deployment at scale will expose these conditions before business value can be realized. The gaps are specific and addressable — but they need to close before deployment, not after.';
+  } else if (counts.red === 1 && counts.yellow >= 2) {
+    heading = 'Your AI program is <em>actionable — with one gap that needs to close first.</em>';
+    verdict = 'Most structural conditions are developing or deployment-ready. One dimension has a critical gap that warrants attention before production scale. The remediation path is well-defined from here.';
+  } else if (counts.red === 1) {
+    heading = 'Your AI program is <em>approaching the deployment threshold.</em>';
+    verdict = 'One dimension is gating production deployment. The remaining dimensions show developing or deployment-ready conditions. Addressing the critical gap unlocks meaningful progress across the program.';
+  } else if (counts.yellow >= 3) {
+    heading = 'Your AI program is <em>developing across multiple fronts.</em>';
+    verdict = 'No single dimension is gating deployment, but developing conditions across multiple dimensions create compounding risk at scale. Targeted structural work closes the gaps without requiring a program reset.';
+  } else if (counts.yellow >= 1) {
+    heading = 'Your AI program is <em>approaching deployment readiness.</em>';
+    verdict = 'Most structural conditions are in place. Developing dimensions require targeted attention before production scale. The path from here is clear.';
+  } else {
+    heading = 'Your AI program shows <em>strong structural readiness.</em>';
+    verdict = 'All four dimensions indicate deployment-ready conditions. The full assessment will validate these signals with evidence and surface any gaps not visible at this diagnostic level.';
+  }
+
+  document.getElementById('results-name-line').textContent = `${respondentName} · ${respondentCompany}`;
+  document.getElementById('results-heading').innerHTML     = heading;
+  document.getElementById('verdict-text').textContent      = verdict;
+  document.getElementById('scorecard-sub').textContent     = `Rapid Diagnostic · ${respondentCompany}`;
+
+  document.getElementById('counts-block').innerHTML = `
+    <div class="count-block">
+      <div class="count-top"><div class="count-pip" style="background:#2D7A4D"></div><div class="count-num">${counts.green}</div></div>
+      <div class="count-lbl">Deployment-Ready</div>
+    </div>
+    <div class="count-block">
+      <div class="count-top"><div class="count-pip" style="background:#C9A93B"></div><div class="count-num">${counts.yellow}</div></div>
+      <div class="count-lbl">Developing</div>
+    </div>
+    <div class="count-block">
+      <div class="count-top"><div class="count-pip" style="background:#B84444"></div><div class="count-num">${counts.red}</div></div>
+      <div class="count-lbl">Gating</div>
+    </div>
+  `;
+
+  document.getElementById('score-grid').innerHTML = dimResults.map(d => `
+    <div class="score-row">
+      <div class="score-row-head">
+        <div class="score-pip" style="background:${ratingColor(d.rating)}"></div>
+        <div class="score-domain">${d.name}</div>
+      </div>
+      <div class="score-finding">${ratingLabel(d.rating)} · ${d.total}/9</div>
+    </div>
+  `).join('');
+
+  // Surface observations for answers scoring 0 or 1, capped at 4
+  const obsByQ = {
+    q1:  'Nearly all outputs are going to human review. The automation thesis is not yet realized in practice — this is the Trust-Constrained Autonomy pattern, where the autonomy ceiling is set by trust in the system, not model capability.',
+    q2:  'Autonomy criteria are informal or undefined. Without documented thresholds, human review volume is determined by individual judgment rather than system design — creating inconsistent and unscalable oversight.',
+    q3:  'Operators cannot explain AI outputs to downstream stakeholders. This gap is a primary driver of high manual review rates and a prerequisite for any meaningful autonomy at production scale.',
+    q4:  'Batch data pipelines mean the AI system decides on stale data. For any time-sensitive operational context, this latency gap directly limits production viability regardless of model quality.',
+    q5:  'No automated feedback loop exists. Model performance that looks stable in current monitoring may be eroding silently — drift is undetectable until it produces visible business impact.',
+    q6:  'Data dependencies are implicit assumptions between teams. Schema changes or freshness degradation upstream will surface as model failures rather than upstream data alerts.',
+    q7:  'Inference cost estimates are based on pilot API costs only. Production costs are typically 3x to 5x higher once peak load, redundancy, and the full inference stack are accounted for.',
+    q8:  'The manual process cost baseline has not been measured. Without it, the cost-displacement business case is unanchored and cannot be validated at production volume.',
+    q9:  'The automation cost versus displacement cost comparison has not been validated at production volume. An initiative can perform well technically while failing the basic economic test.',
+    q10: 'No named deployment authority exists. When an adverse outcome occurs, the accountability question cannot be answered — and accountability questions arrive faster than governance can be retrofitted.',
+    q11: 'Decision reconstruction would take days or cannot be completed. Regulators, litigants, and acquirers require answers in hours. This gap is invisible until the first serious inquiry arrives.',
+    q12: 'Compliance and privacy have not been formally engaged. For initiatives handling personal data or making consequential decisions, this is regulatory exposure typically discovered at the worst possible moment.',
+  };
+
+  const obs = [];
+  DIMENSIONS.forEach(dim => {
+    dim.qs.forEach(q => {
+      if (getVal(q) <= 1 && obs.length < 4) obs.push(obsByQ[q]);
+    });
+  });
+
+  // Fallback: note developing dimensions when no low individual scores exist
+  if (obs.length === 0) {
+    dimResults
+      .filter(d => d.rating === 'yellow')
+      .forEach(d => obs.push(
+        `${d.name} shows developing conditions — not a blocker today but a constraint that compounds at production scale.`
+      ));
+  }
+
+  document.getElementById('obs-list').innerHTML =
+    obs.slice(0, 4).map(o => `<div class="obs-item">${o}</div>`).join('');
+
+  document.getElementById('assessment').style.display = 'none';
+  document.getElementById('results').style.display    = 'block';
+  window.scrollTo(0, 0);
+}
+
+// ============================================================
+// RETAKE  —  clear state and return to gate
+// ============================================================
+function retake() {
+  clearState();
+  document.getElementById('results').style.display    = 'none';
+  document.getElementById('gate').style.display       = 'block';
+  document.querySelectorAll('input[type="radio"]').forEach(el => el.checked = false);
+  document.querySelectorAll('.q-card').forEach(el => el.classList.remove('answered'));
+  ['inp-name','inp-company','inp-email'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('inp-role').value             = '';
+  document.getElementById('answered-count').textContent = '0';
+  document.getElementById('progress-fill').style.width  = '0%';
+  document.getElementById('submit-btn').disabled        = true;
+  window.scrollTo(0, 0);
+}
+
+// ============================================================
+// FORMSPREE  (fire-and-forget — never blocks the respondent)
+// ============================================================
+async function submitToFormspree(name, company, email, role) {
+  try {
+    const res = await fetch('https://formspree.io/f/mgorgerq', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body:    JSON.stringify({ name, company, email, role }),
+    });
+    return res.ok;
+  } catch (err) {
+    console.warn('Formspree submission failed silently:', err);
+    return false;
+  }
+}
+
+// Restore any saved progress on page load
+document.addEventListener('DOMContentLoaded', restoreState);
+</script>
+
+</body>
+</html>
